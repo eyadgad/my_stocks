@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { fetchYahooPrice } from './scrapeYahoo.js';
+import { PORTFOLIO_PATH, portfolioConfig } from './config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -52,26 +53,10 @@ async function handleApi(req, res) {
     res.end(JSON.stringify(results));
     return;
   }
-  if (u.pathname === '/portfolio.json') {
-    // Check for myportfolio.json first, fallback to portfolio.json
-    const myPortfolio = path.join(__dirname, 'myportfolio.json');
-    const defaultPortfolio = path.join(__dirname, 'portfolio.json');
+  if (u.pathname === '/api/portfolio') {
+    console.log(`Serving ${portfolioConfig.name}${portfolioConfig.isPersonal ? ' (personal data)' : ' (demo data)'}`);
     
-    // Use the appropriate file
-    let portfolioFile = defaultPortfolio;
-    if (fs.existsSync(myPortfolio)) {
-      const stat = fs.statSync(myPortfolio);
-      if (stat.size > 0) {
-        portfolioFile = myPortfolio;
-        console.log('Serving myportfolio.json');
-      } else {
-        console.log('myportfolio.json exists but is empty, using portfolio.json');
-      }
-    } else {
-      console.log('myportfolio.json not found, using portfolio.json');
-    }
-    
-    fs.readFile(portfolioFile, (err, data) => {
+    fs.readFile(PORTFOLIO_PATH, (err, data) => {
       if (err) {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'portfolio not found' }));
