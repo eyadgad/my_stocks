@@ -71,10 +71,10 @@ if ($response -eq "yes") {
         Write-Host "=" * 70
     } else {
         Write-Host ""
-        Write-Host "✗ Push failed!"
+        Write-Host "Push failed!"
         Write-Host ""
         Write-Host "Possible reasons:"
-        Write-Host "1. Repository doesn't exist on GitHub"
+        Write-Host "1. Repository does not exist on GitHub"
         Write-Host "   Create it at: https://github.com/new"
         Write-Host "2. Authentication required"
         Write-Host "   GitHub will prompt for credentials"
