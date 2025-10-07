@@ -52,17 +52,28 @@ async function handleApi(req, res) {
     res.end(JSON.stringify(results));
     return;
   }
-  // Allow serving portfolio.json statically
   if (u.pathname === '/portfolio.json') {
-    const p = path.join(__dirname, 'portfolio.json');
-    fs.readFile(p, (err, data) => {
-      if (err) {
-        res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'portfolio not found' }));
-        return;
+    // Check for myportfolio.json first, fallback to portfolio.json
+    const myPortfolio = path.join(__dirname, 'myportfolio.json');
+    const defaultPortfolio = path.join(__dirname, 'portfolio.json');
+    
+    fs.readFile(myPortfolio, (err, data) => {
+      if (!err && data && data.length > 0) {
+        // myportfolio.json exists and has data
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(data);
+      } else {
+        // Fallback to portfolio.json
+        fs.readFile(defaultPortfolio, (err2, data2) => {
+          if (err2) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'portfolio not found' }));
+            return;
+          }
+          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+          res.end(data2);
+        });
       }
-      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-      res.end(data);
     });
     return;
   }

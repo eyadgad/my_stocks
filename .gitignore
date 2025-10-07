@@ -24,3 +24,6 @@ build/
 # Dependencies lock file
 node_modules/
 package-lock.json
+
+# Personal portfolio data
+myportfolio.json

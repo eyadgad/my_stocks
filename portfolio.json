@@ -1,11 +1,14 @@
 [
-  { "ticker": "GOOG", "name": "Google (Alphabet Class C)", "bought": 250.37, "shares": 1, "sold": -1},
-  { "ticker": "LYFT", "name": "Lyft", "bought": 22.92, "shares": 3 , "sold": -1},
-  { "ticker": "UBER", "name": "Uber", "bought": 93.14, "shares": 2 , "sold": -1},
-  { "ticker": "UBER", "name": "Uber", "bought": 99.7, "shares": 8, "sold": -1},
-  { "ticker": "VEA", "name": "Vanguard FTSE Dev Mkts ETF", "bought": 60.02, "shares": 2, "sold": 59.58 },
-  { "ticker": "WMT", "name": "Walmart", "bought": 104.61, "shares": 1, "sold": 102.11 }
-
+  { "ticker": "AAPL", "name": "Apple Inc.", "bought": 150.00, "shares": 10, "sold": -1},
+  { "ticker": "MSFT", "name": "Microsoft Corporation", "bought": 300.00, "shares": 5, "sold": -1},
+  { "ticker": "TSLA", "name": "Tesla Inc.", "bought": 200.00, "shares": 3, "sold": -1},
+  { "ticker": "AMZN", "name": "Amazon.com Inc.", "bought": 120.00, "shares": 8, "sold": -1},
+  { "ticker": "NVDA", "name": "NVIDIA Corporation", "bought": 400.00, "shares": 2, "sold": -1},
+  { "ticker": "META", "name": "Meta Platforms Inc.", "bought": 280.00, "shares": 4, "sold": -1},
+  { "ticker": "GOOGL", "name": "Alphabet Inc. Class A", "bought": 130.00, "shares": 6, "sold": -1},
+  { "ticker": "AMD", "name": "Advanced Micro Devices", "bought": 90.00, "shares": 10, "sold": -1},
+  { "ticker": "SPY", "name": "SPDR S&P 500 ETF", "bought": 420.00, "shares": 5, "sold": 450.00},
+  { "ticker": "QQQ", "name": "Invesco QQQ Trust", "bought": 350.00, "shares": 3, "sold": 380.00}
 ]
 
 

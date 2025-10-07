@@ -1,7 +1,22 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const p = path.resolve('./portfolio.json');
+// Check for myportfolio.json first, fallback to portfolio.json
+const myPortfolioPath = path.resolve('./myportfolio.json');
+const defaultPortfolioPath = path.resolve('./portfolio.json');
+
+let portfolioPath = defaultPortfolioPath;
+try {
+  const stat = await fs.stat(myPortfolioPath);
+  if (stat.size > 0) {
+    portfolioPath = myPortfolioPath;
+    console.log('Using myportfolio.json\n');
+  }
+} catch (e) {
+  console.log('Using portfolio.json (demo data)\n');
+}
+
+const p = portfolioPath;
 
 function fmtMoney(n) {
   return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' }).format(n);
