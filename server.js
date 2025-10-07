@@ -63,7 +63,12 @@ async function handleApi(req, res) {
       const stat = fs.statSync(myPortfolio);
       if (stat.size > 0) {
         portfolioFile = myPortfolio;
+        console.log('Serving myportfolio.json');
+      } else {
+        console.log('myportfolio.json exists but is empty, using portfolio.json');
       }
+    } else {
+      console.log('myportfolio.json not found, using portfolio.json');
     }
     
     fs.readFile(portfolioFile, (err, data) => {

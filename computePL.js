@@ -9,7 +9,7 @@ async function main() {
   const argv = process.argv.slice(2);
   const writeSold = argv.includes('--write-sold');
 
-  // Check for myportfolio.json first, fallback to portfolio.json
+  
   const myPortfolioPath = path.resolve('./myportfolio.json');
   const defaultPortfolioPath = path.resolve('./portfolio.json');
   
