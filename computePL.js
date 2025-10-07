@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { PORTFOLIO_PATH, portfolioConfig } from './config.js';
 
 function fmtMoney(n) {
   return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' }).format(n);
@@ -9,23 +10,10 @@ async function main() {
   const argv = process.argv.slice(2);
   const writeSold = argv.includes('--write-sold');
 
-  
-  const myPortfolioPath = path.resolve('./myportfolio.json');
-  const defaultPortfolioPath = path.resolve('./portfolio.json');
-  
-  let portfolioPath = defaultPortfolioPath;
-  try {
-    await fs.access(myPortfolioPath);
-    const stat = await fs.stat(myPortfolioPath);
-    if (stat.size > 0) {
-      portfolioPath = myPortfolioPath;
-      console.log('Using myportfolio.json\n');
-    }
-  } catch (e) {
-    console.log('Using portfolio.json (demo data)\n');
-  }
+  // Use centralized portfolio configuration
+  console.log(`Using ${portfolioConfig.name}${portfolioConfig.isPersonal ? '' : ' (demo data)'}\n`);
 
-  const raw = await fs.readFile(portfolioPath, 'utf8');
+  const raw = await fs.readFile(PORTFOLIO_PATH, 'utf8');
   const portfolio = JSON.parse(raw);
 
   const active = portfolio.filter(x => x.sold === -1);
