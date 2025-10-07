@@ -113,4 +113,3 @@ export async function fetchYahooPrice(ticker, opts = {}) {
 
   throw new Error(`Could not get quote for ${tkr} (Yahoo JSON+HTML and Stooq all failed).`);
 }
-// End of module: import { fetchYahooPrice } from './scrapeYahoo.js'
