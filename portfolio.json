@@ -1,0 +1,11 @@
+[
+  { "ticker": "GOOG", "name": "Google (Alphabet Class C)", "bought": 250.37, "shares": 1, "sold": -1},
+  { "ticker": "LYFT", "name": "Lyft", "bought": 22.92, "shares": 3 , "sold": -1},
+  { "ticker": "UBER", "name": "Uber", "bought": 93.14, "shares": 2 , "sold": -1},
+  { "ticker": "UBER", "name": "Uber", "bought": 99.7, "shares": 8, "sold": -1},
+  { "ticker": "VEA", "name": "Vanguard FTSE Dev Mkts ETF", "bought": 60.02, "shares": 2, "sold": 59.58 },
+  { "ticker": "WMT", "name": "Walmart", "bought": 104.61, "shares": 1, "sold": 102.11 }
+
+]
+
+

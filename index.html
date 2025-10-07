@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 24px; }
+    h1 { margin: 0 0 16px; font-size: 22px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px 8px; border-bottom: 1px solid #ddd; text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    tfoot td { font-weight: 700; }
+    .gain { color: #117a2a; }
+    .loss { color: #b00020; }
+    .muted { opacity: 0.7; font-size: 12px; }
+    .toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+    button { padding: 6px 10px; cursor: pointer; }
+  </style>
+  <script type="module" src="/web.js"></script>
+  <script>window.PORTFOLIO_URL = '/portfolio.json';</script>
+  <script>window.API_QUOTES = '/api/quotes';</script>
+  <script>window.REFRESH_MS = 15000;</script>
+  <script>window.CURRENCY = 'USD';</script>
+</head>
+<body>
+  <h1>My Portfolio</h1>
+  <div class="toolbar">
+    <button id="refreshBtn">Refresh</button>
+    <span id="status" class="muted"></span>
+  </div>
+
+  <h2>Active Holdings</h2>
+  <table id="activeTable">
+    <thead>
+      <tr>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Shares</th>
+        <th>Bought</th>
+        <th>Cost</th>
+        <th>Live Price</th>
+        <th>Value</th>
+        <th>P/L</th>
+        <th>P/L %</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4">Active Totals</td>
+        <td id="activeTotCost">$0.00</td>
+        <td></td>
+        <td id="activeTotValue">$0.00</td>
+        <td id="activeTotPL">$0.00</td>
+        <td id="activeTotPLPct">0.00%</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <h2>Sold Positions (Realized)</h2>
+  <table id="soldTable">
+    <thead>
+      <tr>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Shares</th>
+        <th>Bought</th>
+        <th>Cost</th>
+        <th>Sold Price</th>
+        <th>Proceeds</th>
+        <th>Realized P/L</th>
+        <th>Realized P/L %</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4">Realized Totals</td>
+        <td id="soldTotCost">$0.00</td>
+        <td></td>
+        <td id="soldTotProceeds">$0.00</td>
+        <td id="soldTotPL">$0.00</td>
+        <td id="soldTotPLPct">0.00%</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <p class="muted">Prices refresh every <span id="refreshMs"></span> seconds. Active prices come from Yahoo JSON or Stooq fallback. Sold positions use recorded sale price.</p>
+</body>
+</html>
