@@ -1,118 +1,91 @@
-﻿# My Stocks Portfolio Tracker# My Stocks Portfolio Tracker# My Stocks Portfolio Tracker
+﻿# My Stocks Portfolio Tracker
 
+A simple real-time stock portfolio tracker that shows live prices and calculates profit/loss.
 
+![Website View](website_view.png)A real-time stock portfolio tracker with live price updates.
 
-A real-time stock portfolio tracker with live price updates.
+## Features
 
+Real-time stock prices from Yahoo Finance  ## FeaturesA real-time stock portfolio tracker with live price updates.A real-time stock portfolio tracker with live price updates.
 
+Automatic fallback to Stooq if Yahoo fails  
 
-## FeaturesA real-time stock portfolio tracker with live price updates.A real-time stock portfolio tracker with live price updates.
+# My Stocks Portfolio Tracker
 
-- Real-time stock price fetching from Yahoo Finance
+Simple stock portfolio tracker with live prices and profit/loss breakdown.
 
-- Stooq fallback for reliability
+![Website View](website_view.png)
 
-- Active holdings with unrealized P/L
+## 1. Features
 
-- Sold positions with realized P/L## Features## Features
+- Live prices (Yahoo Finance JSON; Stooq fallback)
+- Active holdings (unrealized cost/value)
+- Sold positions (realized P/L)
+- Auto refresh (default 15s)
+- Command-line P/L summary (`npm run pl`)
+- Private personal data via `myportfolio.json` (gitignored)
+- Single configuration point (`config.js`)
 
-- Auto-refresh every 15 seconds
+## 2. Requirements
 
-- P/L computation CLI tool- Real-time stock price fetching from Yahoo Finance- Real-time stock price fetching from Yahoo Finance
+- Node.js 18+ (any recent LTS should work)
 
-- Personal portfolio support (myportfolio.json)
-
-- Centralized configuration via config.js- Stooq fallback for reliability- Stooq fallback for reliability
-
-
-
-## Usage- Active holdings with unrealized P/L- Active holdings with unrealized P/L
+## 3. Installation
 
 ```bash
-
-npm start          # Start the server- Sold positions with realized P/L- Sold positions with realized P/L
-
-npm run pl         # Compute P/L summary
-
-```- Auto-refresh every 15 seconds- Auto-refresh every 15 seconds
-
-
-
-## Portfolio Configuration- P/L computation CLI tool- P/L computation CLI tool
-
-
-
-The application uses **myportfolio.json** for your personal data if it exists, otherwise it falls back to **portfolio.json** (demo data).- Personal portfolio support (myportfolio.json)
-
-
-
-### Demo Data## Usage
-
-`portfolio.json` contains sample demonstration data with popular stocks (AAPL, MSFT, TSLA, etc.)
-
-## Usage\\\ash
-
-### Personal Portfolio
-
-1. Create `myportfolio.json` in the project root```bashnpm start          # Start the server
-
-2. Add your portfolio data in the same format:
-
-```jsonnpm start          # Start the servernpm run pl         # Compute P/L summary
-
-[
-
-  { "ticker": "AAPL", "name": "Apple Inc.", "bought": 150.00, "shares": 10, "sold": -1},npm run pl         # Compute P/L summary\\\
-
-  { "ticker": "MSFT", "name": "Microsoft", "bought": 300.00, "shares": 5, "sold": -1}
-
-]```
-
+git clone https://github.com/eyadgad/my_stocks.git
+cd my_stocks
+npm install  
 ```
 
-3. `myportfolio.json` is automatically ignored by git (your data stays private)## Technologies
+## 4. Running the Web App
 
+```bash
+npm start
+```
+Open: http://localhost:3000
 
+## 5. Command-Line P/L Summary
 
-**Note:** `sold: -1` means the position is still active. Any other value is the sale price.## Portfolio Configuration- Node.js (ES Modules)
+```bash
+npm run pl
+```
+Shows totals for active (cost basis) and realized (sold) positions.
 
+### Demo File
+`portfolio.json` ships with sample tickers for testing.
 
+### Personal File
+Create `myportfolio.json` in the project root:
 
-## ArchitectureThe application uses **myportfolio.json** for your personal data if it exists, otherwise it falls back to **portfolio.json** (demo data).- Vanilla JavaScript
-
-- **config.js** - Centralized portfolio file selection (myportfolio.json → portfolio.json)
-
-- **server.js** - HTTP server with `/api/portfolio` and `/api/quotes` endpoints- Yahoo Finance API
-
-- **web.js** - Frontend logic for data fetching and rendering
-
-- **computePL.js** - CLI tool for profit/loss calculation### Demo Data- Stooq CSV API
-
-- **scrapeYahoo.js** - Stock price fetcher with Yahoo Finance and Stooq APIs
-
-`portfolio.json` contains sample demonstration data with popular stocks (AAPL, MSFT, TSLA, etc.)
-
-## Technologies
-
-- Node.js (ES Modules)### Personal Portfolio
-
-- Vanilla JavaScript1. Create `myportfolio.json` in the project root
-
-- Yahoo Finance API2. Add your portfolio data in the same format:
-
-- Stooq CSV API```json
-
+```json
 [
-  { "ticker": "AAPL", "name": "Apple Inc.", "bought": 150.00, "shares": 10, "sold": -1},
-  { "ticker": "MSFT", "name": "Microsoft", "bought": 300.00, "shares": 5, "sold": -1}
+   { "ticker": "AAPL", "name": "Apple Inc.", "bought": 150.00, "shares": 10, "sold": -1 },
+   { "ticker": "MSFT", "name": "Microsoft", "bought": 300.00, "shares": 5, "sold": 250.00 }
 ]
 ```
-3. `myportfolio.json` is automatically ignored by git (your data stays private)
 
-**Note:** `sold: -1` means the position is still active. Any other value is the sale price.
+Field notes:
+- `ticker`: symbol
+- `name`: display name
+- `bought`: purchase price per share
+- `shares`: number of shares
+- `sold`: -1 if still held; otherwise sale price per share
 
-## Technologies
-- Node.js (ES Modules)
-- Vanilla JavaScript
-- Yahoo Finance API
-- Stooq CSV API
+You may list the same ticker multiple times (separate lots).
+
+## 6. Project Structure
+
+```
+config.js        # Chooses myportfolio.json or portfolio.json
+server.js        # HTTP server + API endpoints (/api/portfolio, /api/quotes)
+index.html       # UI markup
+web.js           # Frontend logic (fetch + render)
+scrapeYahoo.js   # Price fetch with Yahoo + Stooq fallback
+computePL.js     # CLI profit/loss summary
+portfolio.json   # Demo data
+myportfolio.json # (create this for personal data; ignored by git)
+```
+
+
+---
