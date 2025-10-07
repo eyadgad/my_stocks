@@ -1,5 +1,5 @@
 async function loadPortfolio() {
-  const res = await fetch('/portfolio.json');
+  const res = await fetch(window.PORTFOLIO_URL);
   if (!res.ok) throw new Error('failed to load portfolio');
   return res.json();
 }
@@ -104,7 +104,7 @@ async function refresh() {
         ticker: p.ticker,
         name: p.name,
         shares: p.shares,
-        bought: p.bought ?? p.boughtPrice,
+        bought: p.bought,
         price: quotes[p.ticker]?.price ?? null,
         source: quotes[p.ticker]?.source ?? null
       })),
@@ -112,7 +112,7 @@ async function refresh() {
         ticker: p.ticker,
         name: p.name,
         shares: p.shares,
-        bought: p.bought ?? p.boughtPrice,
+        bought: p.bought,
         sold: p.sold
       }))
     };
