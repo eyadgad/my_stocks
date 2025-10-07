@@ -53,7 +53,7 @@ Write-Host ""
 Write-Host "How would you like to push?"
 Write-Host "1. Push all commits at once (fast)"
 Write-Host "2. Push in small batches with 2-min delays (realistic pattern)"
-Write-Host "3. Exit (I'll push manually later)"
+Write-Host "3. Exit (I will push manually later)"
 Write-Host ""
 $choice = Read-Host "Enter choice (1-3)"
 
