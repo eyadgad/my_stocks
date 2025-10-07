@@ -57,23 +57,23 @@ async function handleApi(req, res) {
     const myPortfolio = path.join(__dirname, 'myportfolio.json');
     const defaultPortfolio = path.join(__dirname, 'portfolio.json');
     
-    fs.readFile(myPortfolio, (err, data) => {
-      if (!err && data && data.length > 0) {
-        // myportfolio.json exists and has data
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(data);
-      } else {
-        // Fallback to portfolio.json
-        fs.readFile(defaultPortfolio, (err2, data2) => {
-          if (err2) {
-            res.writeHead(404, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'portfolio not found' }));
-            return;
-          }
-          res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-          res.end(data2);
-        });
+    // Use the appropriate file
+    let portfolioFile = defaultPortfolio;
+    if (fs.existsSync(myPortfolio)) {
+      const stat = fs.statSync(myPortfolio);
+      if (stat.size > 0) {
+        portfolioFile = myPortfolio;
       }
+    }
+    
+    fs.readFile(portfolioFile, (err, data) => {
+      if (err) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'portfolio not found' }));
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(data);
     });
     return;
   }

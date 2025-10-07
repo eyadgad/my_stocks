@@ -1,23 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-// Check for myportfolio.json first, fallback to portfolio.json
-const myPortfolioPath = path.resolve('./myportfolio.json');
-const defaultPortfolioPath = path.resolve('./portfolio.json');
-
-let portfolioPath = defaultPortfolioPath;
-try {
-  const stat = await fs.stat(myPortfolioPath);
-  if (stat.size > 0) {
-    portfolioPath = myPortfolioPath;
-    console.log('Using myportfolio.json\n');
-  }
-} catch (e) {
-  console.log('Using portfolio.json (demo data)\n');
-}
-
-const p = portfolioPath;
-
 function fmtMoney(n) {
   return new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' }).format(n);
 }
@@ -26,7 +9,23 @@ async function main() {
   const argv = process.argv.slice(2);
   const writeSold = argv.includes('--write-sold');
 
-  const raw = await fs.readFile(p, 'utf8');
+  // Check for myportfolio.json first, fallback to portfolio.json
+  const myPortfolioPath = path.resolve('./myportfolio.json');
+  const defaultPortfolioPath = path.resolve('./portfolio.json');
+  
+  let portfolioPath = defaultPortfolioPath;
+  try {
+    await fs.access(myPortfolioPath);
+    const stat = await fs.stat(myPortfolioPath);
+    if (stat.size > 0) {
+      portfolioPath = myPortfolioPath;
+      console.log('Using myportfolio.json\n');
+    }
+  } catch (e) {
+    console.log('Using portfolio.json (demo data)\n');
+  }
+
+  const raw = await fs.readFile(portfolioPath, 'utf8');
   const portfolio = JSON.parse(raw);
 
   const active = portfolio.filter(x => x.sold === -1);
