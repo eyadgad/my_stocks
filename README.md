@@ -10,12 +10,6 @@ Real-time stock prices from Yahoo Finance  ## FeaturesA real-time stock portfoli
 
 Automatic fallback to Stooq if Yahoo fails  
 
-# My Stocks Portfolio Tracker
-
-Simple stock portfolio tracker with live prices and profit/loss breakdown.
-
-![Website View](website_view.png)
-
 ## 1. Features
 
 - Live prices (Yahoo Finance JSON; Stooq fallback)
